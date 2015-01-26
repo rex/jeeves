@@ -19,6 +19,9 @@ module Css
       colors_discovered = []
 
       @styles = @declaration_string.split(";").map do |declaration|
+        # @todo - Update the split to accommodate pseudo :before/:after elements
+        # -- http://stackoverflow.com/questions/12192343/how-to-split-a-string-into-only-two-parts-by-the-last-occurrence-of-the-split-c
+
         property, value = declaration.split(":").map(&:strip)
         colors_in_declaration = value.scan(/#([0-9a-f]{6}|[0-9a-f]{3})/i).reject(&:empty?).flatten.uniq
 
