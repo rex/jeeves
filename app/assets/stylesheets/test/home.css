@@ -1,0 +1,11 @@
+body {
+  background: green;
+}
+
+.mydiv {
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.mydiv > p {
+  font-family: "Comic Sans", serif;
+}

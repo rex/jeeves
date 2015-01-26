@@ -1,0 +1,139 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>Jeeves <small>Stylesheet Butler</small></h2>
+    
+      <% unless @include_dirs.blank? %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              Included Directories
+            </div>
+          </div>
+          
+          <div class="list-group">
+            <% @include_dirs.each do |dir| %>
+              <div class="list-group-item">
+                <code><%= dir %></code>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+  
+      <% unless @include_stylesheets.blank? %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              Included Stylesheets
+            </div>
+          </div>
+          
+          <div class="list-group">
+            <% @include_stylesheets.each do |stylesheet_path| %>
+              <% if @parsed_stylesheets.blank? %>
+                <a href="?file=<%= folder_url(stylesheet_path) %>" class="list-group-item">
+                  <code><%= stylesheet_path %></code>
+                </a>
+              <% else %>
+                <div class="list-group-item">
+                  <code><%= stylesheet_path %></code>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% unless @grouped_stylesheets.blank? %>
+        <% @grouped_stylesheets.each do |stylesheet_path, tree| %>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title">
+                <%= stylesheet_path %>
+                <span class="label label-primary pull-right"><%= tree.length %></span>
+              </h2>
+            </div>
+            
+            <table class="table table-condensed table-striped">
+              <thead>
+                <th>Selectors</th>
+                <th>Style Declarations</th>
+              </thead>
+              <tbody>
+                <% tree.each_pair do |style, selectors| %>
+                  <tr>
+                    <td>
+                      <% selectors.each do |selector| %>
+                        <span class="label label-primary"><%= selector %></span>
+                      <% end %>
+                    </td>
+                    <td>
+                      <code class="light small"><%= style %></code>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+      <% end %>
+    
+      <% unless @parsed_stylesheets.blank? %>
+        <% @parsed_stylesheets.each do |stylesheet_path, stylesheet| %>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title">
+                <%= stylesheet_path %>
+                <span class="label label-primary pull-right"><%= stylesheet.length %></span>
+              </h2>
+            </div>
+
+            <div class="panel-body">
+              <p>Colors Found: <strong><%= stylesheet.color_count %></strong></p>
+              <% stylesheet.colors.each do |color| %>
+                <span class="label label-default label-color-lg" style="background: #<%= color %>;">#<%= color %></span>
+              <% end %>
+            </div>
+            
+            <table class="table table-condensed table-striped">
+              <thead>
+                <th>Selector</th>
+                <th>Rules</th>
+                <th>Specificity</th>
+              </thead>
+              <tbody>
+                <% stylesheet.nodes.each do |node| %>
+                  <tr>
+                    <td><code class="light small"><%= node.selector %></code></td>
+                    <td>
+                      <table class="table table-condensed table-inline">
+                        <% node.styles.each do |style| %>
+                          <tr>
+                            <td>
+                              <code class="small"><%= style[:declaration] %></code>
+                            </td>
+                            <td>
+                              <% style[:colors].each do |color| %>
+                                <span class="label label-default label-color pull-right" style="background: #<%= color %>;">#<%= color %></span>
+                              <% end %>
+                            </td>
+                          </tr>
+                        <% end %>
+                      </table>
+                    </td>
+                    <td>
+                      <span class="label label-default">
+                        <%= node.specificity %>
+                      </span>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

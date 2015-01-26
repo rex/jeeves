@@ -1,0 +1,67 @@
+pre {
+  font-size: 8px;
+  line-height: 1;
+}
+
+.label {
+  
+  &.label-default {
+    box-shadow: 0 1px 1px #999;
+    text-shadow: 0 1px 1px #999;
+    text-transform: uppercase;
+  }
+
+  &.label-color {
+    // 
+  }
+
+  &.label-color-lg {
+    font-size: 1.6em;
+    line-height: 2.2em;
+    padding: 8px 25px;
+  }
+}
+
+code {
+  background: $midnight-blue;
+  color: $turquoise;
+  margin: 1px;
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 0;
+
+  &.light {
+    background: $turquoise;
+    color: $midnight-blue;
+  }
+
+  &.small {
+    font-size: 10px;
+    padding: 2px 4px;
+  }
+}
+
+p.style-row {
+  margin: 0 0 2px 0;
+
+  span.inline-color {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+  }  
+  code.small {
+    vertical-align: top;
+  }
+}
+
+table {
+  &.table-inline {
+    margin-bottom: 0;
+  }
+
+  tr {
+    td {
+      vertical-align: middle;
+    }
+  }
+}
